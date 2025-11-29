@@ -1,7 +1,7 @@
-# NCS – Erdőszimuláció Szörny AI-val (Python beadandó)
+# Erdőszimuláció Szörny AI-val 
 
 ## Hallgató
-Nagy Csaba (NCS)
+Nagy Csaba 
 
 ---
 
