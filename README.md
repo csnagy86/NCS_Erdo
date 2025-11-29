@@ -1,104 +1,56 @@
-# Erdőszimuláció Szörny AI-val 
+ Erdőszimuláció szörny AI-val 
 
-## Hallgató
+Hallgató:
 Nagy Csaba 
 
----
+Feladat leírása:
+A program egy egyszerű, játék jellegű Python alkalmazás. A pálya egy
+procedurálisan generált erdő, amely minden futtatáskor másképp néz ki.
+A játékos egy kék körrel mozoghat a vásznon, miközben egy szörny
+(piros kör) a saját állapotai alapján dönt arról, hogy merre mozogjon.
+A szörny járőrözhet, üldözheti a játékost, vagy visszatérhet a
+kiindulópontra, ha lemarad.
 
-## Feladat leírása
-A program egy egyszerű, játékos Python-alkalmazás, amely egy
-procedurálisan generált erdőt jelenít meg. A felhasználó egy kék körrel
-irányítható játékost mozgat a pályán, miközben egy piros szörny egy
-állapotgép (FSM) alapján reagál a környezetére:
+A játékosnak van HP-ja, a szörny üldözés közben gyorsabbá válik,
+a túlélési idő folyamatosan mérve van, és a játék befejezésekor az
+eredmény belekerül egy ncs_log.txt nevű fájlba.  
+A megjelenítés Tkinter Canvas segítségével történik.
 
-- járőrözik, ha nem látja a játékost,
-- üldözi, ha a játékos a látókörébe kerül,
-- visszatér a kiindulópontra, ha elveszíti a célpontot.
+Modulok és a használt függvények:
 
-A fák L-System jellegű módszerrel generálódnak, így minden új erdő
-egyedi.  
-A játékosnak HP-ja van, a szörny üldözés közben gyorsul, a látótáv köre
-pulzál, és a program a túlélési időt is méri.  
-Játék végén az eredmény bekerül a `ncs_log.txt` naplófájlba.
+main.py:
+- Tkinter ablak létrehozása (Tk)
+- Az alkalmazás elindítása (NCSErdoAlkalmazas)
+- főciklus (mainloop)
 
-A grafikus megjelenítés Tkinter Canvas alapú, a teljes logika külön
-modulban (ncs_game.py) található.
-
----
-
-## Modulok és a modulokban használt függvények
-
-### **main.py**
-A program belépési pontja:
-- Tk ablak létrehozása (`Tk()`)
-- az alkalmazás indítása (`NCSErdoAlkalmazas`)
-- fő eseményciklus (`root.mainloop()`)
-
-### **ncs_game.py** 
-Használt modulok:
-- **random**
-  - `random.random()`
-  - `random.randint()`
-  - `random.choice()`
-- **math**
-  - `sqrt()`
-  - `radians()`
-- **time**
-  - `time.time()`
-- **tkinter**
-  - `Canvas`, `Frame`, `Label`, `Button`
+ncs_game.py (saját modul, NCS monogrammal):
+Felhasznált modulok:
+- random: véletlenszám-generálás (random, randint, choice)
+- math: trigonometria és távolságszámítás (sqrt, radians)
+- time: túlélési idő mérése (time)
+- tkinter: grafikus elemek (Canvas, Frame, Label, Button)
 
 Saját függvény:
-- **`ncs_erdogeneralas()`**  
-  L-System jellegű fák generálása, procedurális erdő előállítása.
+- ncs_erdogeneralas(): az erdő L-System jellegű generálásáért felel.
 
----
+Osztályok:
 
-## Osztályok
+NCSJátékos:
+A játékos pozícióját és mozgását kezeli.
 
-### **NCSJátékos**
-A játékos pozícióját, sebességét és mozgását kezeli.  
-Metódus:  
-- `mozog(dx, dy, szelesseg, magassag)` – pályahatárok ellenőrzésével.
+NCSSzornyFSM:
+A szörny viselkedését valósítja meg egy egyszerű állapotgéppel
+(járőr, üldözés, visszatérés). Üldözés közben fokozatosan gyorsul.
 
-### **NCSSzornyFSM**
-A szörny mesterséges intelligenciája, Finite State Machine alapon.  
-Állapotok:
-- járőr  
-- üldözés  
-- visszatérés  
+NCSLSystemFa:
+Egy-egy faág-struktúrát hoz létre L-Systemhez hasonló módszerrel.
 
-A szörny üldözés közben fokozatosan gyorsul.  
-Metódusok:
-- `tavolsag(px, py)`
-- `frissit(jatekos, szelesseg, magassag, tuleles_mp)`
+NCSErdoAlkalmazas:
+A teljes grafikus alkalmazás főosztálya, amely kezeli a rajzolást,
+a billentyűket, a játék logikáját, és a logfájl írását.
 
-### **NCSLSystemFa**
-Egy faág-struktúrát generál, L-System jellegű szabályokkal.  
-Metódus:
-- `szegmensek()` – visszaadja az ágak koordinátáit.
-
-### **NCSErdoAlkalmazas**
-A grafikus alkalmazás főosztálya:  
-- Canvas rajzolás (erdő, játékos, szörny, látótáv)  
-- billentyűkezelés  
-- HP- és időmérés  
-- logfájl írása  
-- játékciklus frissítése  
-
----
-
-## Kapcsolódás a szakdolgozathoz
-
-Ez a beadandó témájában is illeszkedik a szakdolgozatomhoz, amely az
-**algoritmikus tartalomgenerálás és a viselkedésmodellezés**
-Python–C# környezetben történő vizsgálatával foglalkozik.
-
-A projekt gyakorlatias demonstrációt ad két kulcsterületre:
-- **procedurális generálás** (L-System erdő),
-- **AI viselkedésmodellezés** (szörny – FSM).
-
-A szakdolgozatban használt elméleti és modellezési módszerek (PCG, FSM,
-állapotváltozások, reakciók) itt kisebb, interaktív formában jelennek
-meg, ezért a program egyfajta Python-oldali mini mintaprojektként is
-szolgál a dolgozat gyakorlati részéhez.
+Kapcsolódás a szakdolgozathoz:
+A beadandó témája részben kapcsolódik a szakdolgozatomhoz, amely az
+algoritmikus tartalomgenerálással és a viselkedésmodellezéssel foglalkozik.
+A projekt kisebb gyakorlati példát mutat be arra, hogyan lehet Pythonban 
+procedurális környezetet és egyszerű AI működést összeállítani.
