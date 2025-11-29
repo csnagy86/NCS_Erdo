@@ -34,7 +34,7 @@ A program belépési pontja:
 - az alkalmazás indítása (`NCSErdoAlkalmazas`)
 - fő eseményciklus (`root.mainloop()`)
 
-### **ncs_game.py** *(saját modul, NCS monogrammal)*
+### **ncs_game.py** 
 Használt modulok:
 - **random**
   - `random.random()`
